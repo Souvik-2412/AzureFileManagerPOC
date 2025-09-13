@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Azure File Manager</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .upload-section { margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <div class="upload-section">
+        <h2>Upload File</h2>
+        <form id="uploadForm">
+            <input type="file" id="fileInput" name="file" required>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+
+    <h2>Uploaded Files Metadata</h2>
+    <table id="filesTable">
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Size (KB)</th>
+                <th>Type</th>
+                <th>Upload Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Metadata rows will appear here -->
+        </tbody>
+    </table>
+
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+        const filesTableBody = document.querySelector('#filesTable tbody');
+
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (file) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${file.name}</td>
+                    <td>${(file.size / 1024).toFixed(2)}</td>
+                    <td>${file.type || 'N/A'}</td>
+                    <td>${new Date().toLocaleString()}</td>
+                `;
+                filesTableBody.appendChild(row);
+                uploadForm.reset();
+            }
+        });
+    </script>
+</body>
+</html></form></div>

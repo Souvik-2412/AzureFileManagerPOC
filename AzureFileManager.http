@@ -1,0 +1,6 @@
+@AzureFileManager_HostAddress = http://localhost:5006
+
+GET {{AzureFileManager_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
