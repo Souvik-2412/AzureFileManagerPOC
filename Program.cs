@@ -11,21 +11,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Read connection strings from configuration (environment variables or appsettings.json)
+var blobConnectionString = builder.Configuration["Azure:BlobStorageConnectionString"];
+var tableConnectionString = builder.Configuration["Azure:TableStorageConnectionString"];
+var blobContainerName = "BLOB_CONTAINER_NAME"; // safe to commit, not a secret
+var tableName = "TABLE_NAME"; // safe to commit, not a secret
+
 // Register your services for dependency injection
 builder.Services.AddSingleton<AuthService>();
 builder.Services.AddSingleton<BlobService>(provider =>
 {
-    // Replace with your actual Azure Blob Storage connection string and container name
-    var connectionString = "BLOB_STORAGE_CONNECTION_STRING";
-var containerName = "BLOB_CONTAINER_NAME";
-    return new BlobService(connectionString, containerName);
+    return new BlobService(blobConnectionString, blobContainerName);
 });
 builder.Services.AddSingleton<TableService>(provider =>
 {
-    // Replace with your actual Azure Table Storage connection string and table name
-    var connectionString = "BLOB_CONNECTION_STRING";
-    var tableName = "TABLE_CONNECTION_STRING";
-    return new TableService(connectionString, tableName);
+    return new TableService(tableConnectionString, tableName);
 });
 
 var app = builder.Build();
