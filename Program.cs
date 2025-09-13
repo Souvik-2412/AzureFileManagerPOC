@@ -16,15 +16,15 @@ builder.Services.AddSingleton<AuthService>();
 builder.Services.AddSingleton<BlobService>(provider =>
 {
     // Replace with your actual Azure Blob Storage connection string and container name
-    var connectionString = "DefaultEndpointsProtocol=https;AccountName=filemanagerpocstore;AccountKey=UwVKHssAkyV1iUJaoY/3aSBP8hYgHx/ZXTSKR5As42cZmJsoer3eoPYdQhTq90i0cjPbfzxnsDk7+AStEltpXg==;EndpointSuffix=core.windows.net";
-    var containerName = "filemanager-container";
+    var connectionString = "BLOB_STORAGE_CONNECTION_STRING";
+var containerName = "BLOB_CONTAINER_NAME";
     return new BlobService(connectionString, containerName);
 });
 builder.Services.AddSingleton<TableService>(provider =>
 {
     // Replace with your actual Azure Table Storage connection string and table name
-    var connectionString = "DefaultEndpointsProtocol=https;AccountName=filemanagerpocstore;AccountKey=UwVKHssAkyV1iUJaoY/3aSBP8hYgHx/ZXTSKR5As42cZmJsoer3eoPYdQhTq90i0cjPbfzxnsDk7+AStEltpXg==;EndpointSuffix=core.windows.net";
-    var tableName = "FileMetaData";
+    var connectionString = "BLOB_CONNECTION_STRING";
+    var tableName = "TABLE_CONNECTION_STRING";
     return new TableService(connectionString, tableName);
 });
 
