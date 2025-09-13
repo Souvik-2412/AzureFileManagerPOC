@@ -12,10 +12,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Read connection strings from configuration (environment variables or appsettings.json)
-var blobConnectionString = builder.Configuration["Azure:BlobStorageConnectionString"];
-var tableConnectionString = builder.Configuration["Azure:TableStorageConnectionString"];
-var blobContainerName = "BLOB_CONTAINER_NAME"; // safe to commit, not a secret
-var tableName = "TABLE_NAME"; // safe to commit, not a secret
+var blobConnectionString = builder.Configuration["BLOB_CONN_STRING"];
+var tableConnectionString = builder.Configuration["TABLE_CONN_STRING"];
+var keyvaultname = builder.Configuration["KEYVAULT_NAME"];
+var tenantId = builder.Configuration["AZURE_TENANT_ID"];
+var clientId = builder.Configuration["AZURE_CLIENT_ID"];
+var appInsightsKey = builder.Configuration["APPINSIGHTS_INSTRUMENTATION_KEY"];
+
+var blobContainerName = "filemanager-container";  
+var tableName = "FileMetadata";
+
 
 // Register your services for dependency injection
 builder.Services.AddSingleton<AuthService>();
