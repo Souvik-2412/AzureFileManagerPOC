@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
 <body>
     <div class="container">
         <h2>Register</h2>
-        <form action="/register" method="post">
+        <form id="registerForm">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
 
@@ -32,5 +32,30 @@
             <button type="submit">Register</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const data = {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            const res = await fetch('https://filemanager-poc-app-e8hqhyg0cbbcerhj.centralindia-01.azurewebsites.net/api/register', 
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (res.ok) {
+                alert('Registration successful!');
+            } else {
+                alert('Registration failed!');
+            }
+        });
+    </script>
 </body>
 </html>

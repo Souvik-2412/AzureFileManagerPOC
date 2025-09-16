@@ -54,7 +54,7 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form method="post" action="/login">
+        <form id="loginForm">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
 
@@ -64,5 +64,39 @@
             <button type="submit">Login</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const data = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const res = await fetch('https://filemanager-poc-app-e8hqhyg0cbbcerhj.centralindia-01.azurewebsites.net/api/login', 
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (res.ok) {
+                    const result = await res.json();
+                    alert('Login successful!');
+                    // Optional: store token if your API returns one
+                    // localStorage.setItem('token', result.token);
+                    // Redirect to dashboard or home page
+                    // window.location.href = '/dashboard.html';
+                } else {
+                    const error = await res.json();
+                    alert('Login failed: ' + (error.message || 'Invalid credentials'));
+                }
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        });
+    </script>
 </body>
 </html>
